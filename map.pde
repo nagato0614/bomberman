@@ -1,9 +1,13 @@
 class Map {
   public static final int WIDTH = 17;
   public static final int HEIGHT = 13;
-  public static final int HARD_BROCK = -1;  //no broken blcok
   public static final int BLOCK_SIZE = 30;
+  public static final int HARD_BROCK = -1;  //no broken blcok
+  public static final int EMPTY = 0;
+  public static final int PLAYER = 1;
   public static final int BOMB = 2;
+  public static final int SOFT_BROCK = 3;
+  
   private int map[][];
   private int hiddenMap[][];
  
@@ -55,5 +59,18 @@ class Map {
     if (this.map[i][j] == 2) {
       this.map[i][j] = 0;
     }
+  }
+  
+  public void brakeSoftBrock(int i, int j) {
+    if (0 <= i && i < this.HEIGHT && 0 <= j && j < this.WIDTH)
+      this.map[i][j] = 0;
+  }
+  
+  public int getRealX(int x) {
+    return x * Map.BLOCK_SIZE + Map.BLOCK_SIZE / 2;
+  }
+  
+  public int getRealY(int y) {
+    return y * Map.BLOCK_SIZE + Map.BLOCK_SIZE / 2;
   }
 }

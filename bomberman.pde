@@ -4,9 +4,11 @@
 import java.util.ArrayList;
 
 //static variable
+boolean GAME_END = false;
 Map map;
 MyPlayer me;
 ArrayList<Bomb> bomb;
+
 
 void setup() {
   size(520, 400);
@@ -16,7 +18,7 @@ void setup() {
   rectMode(CENTER);
   ellipseMode(CENTER);  
   map = new Map();
-  me = new MyPlayer();
+  me = new MyPlayer(map);
   bomb = new ArrayList<Bomb>();
 }
 
@@ -50,7 +52,17 @@ void draw() {
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
   
   update();
-  println(bomb.size());
+}
+
+
+//not yet finish
+void explode() {
+  for (int i = 0; i < bomb.size(); i++) {
+    Bomb b;
+    if ((b = bomb.get(i)) != null) {
+      
+    }
+  }
 }
 
 void update() {
@@ -61,6 +73,7 @@ void update() {
       cnt = b.update();
     }
     if (cnt >= Bomb.MAX_BOMB_COUNT){
+      b.explode(map, me);
       b.delete(map);
       bomb.remove(i);
     }

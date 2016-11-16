@@ -3,32 +3,47 @@ public class PlayerBase {
   private int y;
   private int bombCnt;
   private int maxBomb;
+  private int bombLevel;
   
-  public PlayerBase() {
+  public PlayerBase(Map map) {
     this.bombCnt = 0;
     this.maxBomb = 1;
     this.x = 1;
     this.y = 1;
+    this.bombLevel = 4;
+    map.map[x][y] = Map.PLAYER;
+  }
+  
+  private void setPlayer(Map map) {
+    map.map[this.x][this.y] = Map.PLAYER;
+  }
+  
+  private void removePlayer(Map map) {
+    map.map[this.x][this.y] = Map.EMPTY;
   }
   
   public void moveUp(Map map) {
-    if (map.getMap(this.x - 1, this.y) != -1)
+    if (map.getMap(this.x - 1, this.y) != -1)  {
       this.x--;
+    }
   }
   
   public void moveDown(Map map) {
-    if (map.getMap(this.x + 1, this.y) != -1)
+    if (map.getMap(this.x + 1, this.y) != -1) {
       this.x++;
+    }
   }
   
   public void moveLeft(Map map) { 
-    if (map.getMap(this.x, this.y - 1) != -1)
+    if (map.getMap(this.x, this.y - 1) != -1) {
       this.y--;
+    }
   }
   
   public void moveRight(Map map) {
-    if (map.getMap(this.x, this.y + 1) != -1)
+    if (map.getMap(this.x, this.y + 1) != -1) {
       this.y++;
+    }
   }
  
   public int getX() {
@@ -51,7 +66,7 @@ public class PlayerBase {
     if (this.bombCnt < this.maxBomb) {
       map.setBomb(this.x, this.y);
       this.bombCnt++;
-      return new Bomb(this.x, this.y, this);
+      return new Bomb(this.x, this.y, this, this.bombLevel);
     }
     return null;
   }

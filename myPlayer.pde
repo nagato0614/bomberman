@@ -3,8 +3,8 @@ public class MyPlayer extends PlayerBase {
   private int x;
   private int y;
   
-  public MyPlayer() {
-    super();
+  public MyPlayer(Map map) {
+    super(map);
   }
 
 }
