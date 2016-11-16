@@ -1,6 +1,8 @@
 //homework_20161114
 //nagai toru
 
+import java.util.ArrayList;
+
 //static variable
 private Map map;
 private MyPlayer me;
@@ -36,9 +38,9 @@ void draw() {
   //draw bomb
   for (int i = 0; i < Map.HEIGHT; i++) {
     for (int j = 0; j < Map.WIDTH; j++) {
-      if (map.getMap(i, j) == Map.BOMB) {
+      if (map.getMap(j, i) == Map.BOMB) {
         fill(0);
-        ellipse(map.getMapPointX(i), map.getMapPointY(j), 15, 15);
+        ellipse(map.getMapPointX(j), map.getMapPointY(i), 15, 15);
       }
     }
   }

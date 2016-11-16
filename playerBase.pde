@@ -1,6 +1,6 @@
 public class PlayerBase {
-  private int x;    //column
-  private int y;    //row
+  private int x;
+  private int y;
   
   public PlayerBase() {
     this.x = 1;
@@ -44,6 +44,6 @@ public class PlayerBase {
   }
   
   public void setBomb(Map map) {
-    map.setBomb(this.y, this.x);
+    map.setBomb(this.x, this.y);
   }
 }
