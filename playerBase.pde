@@ -47,10 +47,12 @@ public class PlayerBase {
     return this.x * Map.BLOCK_SIZE + Map.BLOCK_SIZE / 2;
   }
   
-  public void setBomb(Map map) {
+  public Bomb setBomb(Map map) {
     if (this.bombCnt < this.maxBomb) {
       map.setBomb(this.x, this.y);
       this.bombCnt++;
+      return new Bomb(this.x, this.y);
     }
+    return null;
   }
 }
