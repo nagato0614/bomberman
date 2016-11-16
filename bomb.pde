@@ -18,7 +18,7 @@ class Bomb {
     this.level = level;
     this.explosionSize = new int[4];
     for (int i = 0; i < explosionSize.length; i++) {
-      explosionSize[i] = -1;
+      explosionSize[i] = 0;
     this.isExplode = false;
     }
   }
@@ -37,8 +37,9 @@ class Bomb {
     //down
     for (int i = 0; i < this.level; i++) {
       if (map.getMap(this.x + i, this.y) == Map.HARD_BLOCK || map.getMap(this.x + i, this.y) == Map.SOFT_BLOCK) {
-        if (map.getMap(this.x + i, this.y) == Map.SOFT_BLOCK)
+        if (map.getMap(this.x + i, this.y) == Map.SOFT_BLOCK) {
           map.brakeSoftBrock(this.x + i, this.y);
+        }
         break;
       }
       this.explosionSize[0]++;
@@ -47,8 +48,9 @@ class Bomb {
     //up
     for (int i = 0; i < this.level; i++) {
       if (map.getMap(this.x - i, this.y) == Map.HARD_BLOCK || map.getMap(this.x - i, this.y) == Map.SOFT_BLOCK) {
-        if (map.getMap(this.x - i, this.y) == Map.SOFT_BLOCK)
+        if (map.getMap(this.x - i, this.y) == Map.SOFT_BLOCK) {
           map.brakeSoftBrock(this.x - i, this.y);
+        }
         break;
       }
       this.explosionSize[1]++;
@@ -57,8 +59,9 @@ class Bomb {
     //right
     for (int i = 0; i < this.level; i++) {
       if (map.getMap(this.x, this.y + i) == Map.HARD_BLOCK || map.getMap(this.x, this.y + i) == Map.SOFT_BLOCK) {
-        if (map.getMap(this.x, this.y + 1) == Map.SOFT_BLOCK)
+        if (map.getMap(this.x, this.y + i) == Map.SOFT_BLOCK) {
           map.brakeSoftBrock(this.x, this.y + i);
+        }
         break;
       }
       this.explosionSize[2]++;
@@ -67,16 +70,14 @@ class Bomb {
     //left
     for (int i = 0; i < this.level; i++) { 
       if (map.getMap(this.x, this.y - i) == Map.HARD_BLOCK || map.getMap(this.x, this.y - i) == Map.SOFT_BLOCK) {
-        if (map.getMap(this.x, this.y - 1) == Map.SOFT_BLOCK)
+        if (map.getMap(this.x, this.y - i) == Map.SOFT_BLOCK) {
           map.brakeSoftBrock(this.x, this.y - i);
+        }
         break;
       }
       this.explosionSize[3]++;
     }
-    
-    for (int i = 0; i < 4; i++)
-      System.out.printf("%d ", explosionSize[i]);
-    println();
+   
     
     fill(#FFCE52);
     //down

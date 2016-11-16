@@ -99,6 +99,16 @@ class Map {
 
   public void brakeSoftBrock(int i, int j) {
     if (0 <= i && i < this.HEIGHT && 0 <= j && j < this.WIDTH)
-      this.map[i][j] = 0;
+      this.map[i][j] = EMPTY;
+  }
+  
+  public void show() {
+    println("map");
+    for (int i = 0; i < HEIGHT; i++) { 
+      for (int j = 0; j < WIDTH ; j++) {
+        System.out.printf("%3d ", this.map[i][j]);
+      }
+      println();
+    }
   }
 }

@@ -8,6 +8,7 @@ boolean GAME_END = false;
 Map map;
 MyPlayer me;
 ArrayList<Bomb> bomb;
+int showCnt;
 
 void setup() {
   size(520, 400);
@@ -19,6 +20,7 @@ void setup() {
   map = new Map();
   me = new MyPlayer(map);
   bomb = new ArrayList<Bomb>();
+  showCnt = 0;
 }
 
 void draw() {
@@ -54,6 +56,10 @@ void draw() {
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
 
   update();
+  
+  showCnt = ++showCnt % 60;
+  if (showCnt == 0)
+    map.show();
 }
 
 
