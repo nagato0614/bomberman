@@ -1,8 +1,12 @@
 public class PlayerBase {
   private int x;
   private int y;
+  private int bombCnt;
+  private int maxBomb;
   
   public PlayerBase() {
+    this.bombCnt = 0;
+    this.maxBomb = 1;
     this.x = 1;
     this.y = 1;
   }
@@ -44,6 +48,9 @@ public class PlayerBase {
   }
   
   public void setBomb(Map map) {
-    map.setBomb(this.x, this.y);
+    if (this.bombCnt < this.maxBomb) {
+      map.setBomb(this.x, this.y);
+      this.bombCnt++;
+    }
   }
 }

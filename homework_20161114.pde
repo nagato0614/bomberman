@@ -4,8 +4,9 @@
 import java.util.ArrayList;
 
 //static variable
-private Map map;
-private MyPlayer me;
+Map map;
+MyPlayer me;
+ArrayList<Bomb> bomb;
 
 void setup() {
   size(520, 400);
@@ -16,6 +17,7 @@ void setup() {
   ellipseMode(CENTER);  
   map = new Map();
   me = new MyPlayer();
+  bomb = new ArrayList<Bomb>();
 }
 
 void draw() {
@@ -31,19 +33,21 @@ void draw() {
       }
     }
   }
-  //player
-  fill(255);
-  ellipse(me.getRealX(), me.getRealY(), 20, 20);
+
   
   //draw bomb
   for (int i = 0; i < Map.HEIGHT; i++) {
     for (int j = 0; j < Map.WIDTH; j++) {
-      if (map.getMap(j, i) == Map.BOMB) {
+      if (map.getMap(i, j) == Map.BOMB) {
         fill(0);
         ellipse(map.getMapPointX(j), map.getMapPointY(i), 15, 15);
       }
     }
   }
+  
+  //player
+  fill(255);
+  ellipse(me.getRealX(), me.getRealY(), 20, 20);
 }
 
 void keyTyped() {
