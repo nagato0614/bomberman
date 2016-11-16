@@ -15,6 +15,10 @@ class Bomb {
     return ++this.bombCnt;
   }
   
+  void explode() {
+    
+  }
+  
   void delete(Map map) {
     this.player.removedBomb();
     map.deleteBomb(this.x, this.y);
