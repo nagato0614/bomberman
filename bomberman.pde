@@ -73,7 +73,7 @@ void keyTyped() {
       case 'z' :
         Bomb b = me.setBomb(map);
         if (b != null)
-          bomb.add(me.setBomb(map));
+          bomb.add(b);
         break;
     }
   }
