@@ -50,4 +50,10 @@ class Map {
   public void setBomb(int i, int j) {
     this.map[i][j] = 2;
   }
+  
+  public void deleteBomb(int i, int j) {
+    if (this.map[i][j] == 2) {
+      this.map[i][j] = 0;
+    }
+  }
 }

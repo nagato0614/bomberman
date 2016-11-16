@@ -48,13 +48,30 @@ void draw() {
   //player
   fill(255);
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
+  
+  update();
+}
+
+void update() {
+  for (int i = 0; i < bomb.size(); i++) {
+    int cnt = 0;
+    Bomb b;
+    if ((b = bomb.get(i)) != null) {
+      cnt = b.update();
+      println(cnt);
+    }
+    if (cnt >= Bomb.MAX_BOMB_COUNT){
+      b.delete(map);
+      bomb.remove(i);
+    }
+  }
 }
 
 void keyTyped() {
   if (keyPressed) {
     switch (int(key)) {
       case 'z' :
-        me.setBomb(map);
+        bomb.add(me.setBomb(map));
     }
   }
 }

@@ -51,8 +51,12 @@ public class PlayerBase {
     if (this.bombCnt < this.maxBomb) {
       map.setBomb(this.x, this.y);
       this.bombCnt++;
-      return new Bomb(this.x, this.y);
+      return new Bomb(this.x, this.y, this);
     }
     return null;
+  }
+  
+  public void removedBomb() {
+    this.bombCnt--;
   }
 }

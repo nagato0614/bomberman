@@ -3,13 +3,20 @@ class Bomb {
   private int bombCnt;
   private int x;
   private int y;
-  public Bomb(int x, int y) {
+  private PlayerBase player;
+  public Bomb(int x, int y, PlayerBase player) {
     this.x = x;
     this.y = y;
     this.bombCnt = 0;
+    this.player = player;
   }
   
-  void update() {
-    this.bombCnt++;
+  int update() {
+    return ++this.bombCnt;
+  }
+  
+  void delete(Map map) {
+    this.player.removedBomb();
+    map.deleteBomb(this.x, this.y);
   }
 }
