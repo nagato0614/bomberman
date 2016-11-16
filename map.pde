@@ -3,6 +3,7 @@ class Map {
   public static final int HEIGHT = 13;
   public static final int HARD_BROCK = -1;  //no broken blcok
   public static final int BLOCK_SIZE = 30;
+  public static final int BOMB = 2;
   private int map[][];
   private int hiddenMap[][];
  
@@ -35,5 +36,18 @@ class Map {
       }
       System.out.println();
     }
+  }
+  
+  public int getMapPointX(int i) {
+    return i * Map.BLOCK_SIZE + Map.BLOCK_SIZE / 2;
+  }
+  
+  public int getMapPointY(int j) {
+    return j * Map.BLOCK_SIZE + Map.BLOCK_SIZE / 2;
+  }
+  
+  //row, column
+  public void setBomb(int i, int j) {
+    this.map[i][j] = 2;
   }
 }

@@ -3,8 +3,8 @@ public class MyPlayer extends PlayerBase {
   private int x;
   private int y;
   
-  public MyPlayer(int x, int y) {
-    super(x, y);
+  public MyPlayer() {
+    super();
   }
 
 }
