@@ -7,7 +7,7 @@ public class PlayerBase {
   
   public PlayerBase(Map map) {
     this.bombCnt = 0;
-    this.maxBomb = 1;
+    this.maxBomb = 10;
     this.x = 1;
     this.y = 1;
     this.bombLevel = 4;
