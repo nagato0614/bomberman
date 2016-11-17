@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 //static variable
 final int TURN = 15;
+final int ENEMY_NUM = 10;
 boolean GAME_END = false;
 boolean GAME_CLEAR = true;
 Map map;
@@ -30,6 +31,7 @@ void setup() {
   isKeyPush = true;
   isMoveKey = true;
   turnCount = 0;
+  spownEnemy();
 }
 
 void draw() {
@@ -64,20 +66,61 @@ void draw() {
   fill(255);
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
 
+
+  drawEnemy();
+
   update();
-  if ((turnCount = ++turnCount % TURN) == 0 && !GAME_END) {
+  if ((++turnCount % TURN) == 0 && !GAME_END) {
     isKeyPush = true;
     isMoveKey = true;
+  }
+  if ((turnCount % (TURN + 20) == 0)) {
+    enemyMoveAll();
   }
 
   allHitCheck();
 }
 
-void spoenEnemy() {
-  for (int i = 0; i < 3; i ++) {
-    for (int j = 0; j < Map.WIDTH; j++) {
-      if (map.map[i][j] == Map.EMPTY && random(100) > 90) {
-        e.add(new Enemy(map, i, j, (int)random(2) + 1));
+void enemyMoveAll() {
+  if (e.size() <= 0)
+    return;
+  for (int i = 0; i < e.size(); i++) {
+    Enemy a = e.get(i);
+    if (a != null) {
+      a.move(map);
+    }
+  }
+}
+
+void drawEnemy() {
+  if (e.size() <= 0)
+    return;
+  for (int i = 0; i < e.size(); i++) {
+    Enemy a = e.get(i);
+    if (a != null) {
+      fill(#C61A1A);
+      ellipse(a.getRealX(), a.getRealY(), 20, 20);
+    }
+  }
+}
+
+void spownEnemy() {
+  int num = ENEMY_NUM;
+  while (num >0) {
+    for (int i = 0; i < 3; i ++) {
+      for (int j = 3; j < Map.WIDTH; j++) {
+        if (map.map[i][j] == Map.EMPTY && random(100) > 90) {
+          e.add(new Enemy(map, i, j, (int)random(2) + 1));
+          num--;
+        }
+      }
+    }
+    for (int i = 3; i < Map.HEIGHT; i++) {
+      for (int j = 0; j< Map.WIDTH; j++) {
+        if (map.map[i][j] == Map.EMPTY && random(100) > 90) {
+          e.add(new Enemy(map, i, j, (int)random(2) + 1));
+          num--;
+        }
       }
     }
   }
@@ -120,6 +163,16 @@ void allHitCheck() {
       if (hitCheck(me, map, bomb.get(i))) {
         GAME_END = true; 
         println("finish");
+      }
+      if (e.size() > 0) {
+        for (int j = 0; j < e.size(); j++) {
+          Enemy a = e.get(j);
+          if (a != null) {
+            if (hitCheck(a, map, bomb.get(i))) {
+              e.remove(j);
+            }
+          }
+        }
       }
     }
   }
@@ -171,6 +224,9 @@ void keyTyped() {
       Bomb b = me.setBomb(map);
       if (b != null)
         bomb.add(b);
+      break;
+    case 'q' :
+      map.showMap();
       break;
     }
   }

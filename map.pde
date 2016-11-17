@@ -7,10 +7,10 @@ class Map {
   public static final int PLAYER = 1;
   public static final int BOMB = 2;
   public static final int SOFT_BLOCK = 3;
+  public static final int ENEMY = 4;
   public static final int MAX_SOFT_BLOCK = 100;
   private int map[][];
   private int hiddenMap[][];
-
 
   public Map() {
     this.map = new int[HEIGHT][WIDTH];
@@ -19,7 +19,7 @@ class Map {
     this.fillHardBlock(this.hiddenMap);
     this.fillSoftBlock(this.map);
   }
-
+  
   private void fillSoftBlock(int[][] a) {
     int leave = MAX_SOFT_BLOCK;
     int x = 0;
@@ -58,9 +58,9 @@ class Map {
       for (int j = 0; j < WIDTH; j++) {
         if (i == 0 || j == 0 || (HEIGHT - 1) == i || (WIDTH - 1) == j
           || ((i + 1) % 2 == 1 && (j + 1) % 2 == 1))
-          a[i][j] = -1;
+          a[i][j] = HARD_BLOCK;
         else
-          a[i][j] = 0;
+          a[i][j] = EMPTY;
       }
     }
   }
@@ -70,6 +70,7 @@ class Map {
   }
 
   public void showMap() {
+    println("test");
     for (int i = 0; i < HEIGHT; i++) {
       for (int j = 0; j < WIDTH; j++) {
         System.out.printf("%3d ", this.map[i][j]);

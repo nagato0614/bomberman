@@ -7,11 +7,10 @@ public class PlayerBase {
   
   public PlayerBase(Map map, int x, int y) {
     this.bombCnt = 0;
-    this.maxBomb = 1;
+    this.maxBomb = 3;
     this.bombLevel = 4;
     this.x = x;
     this.y = y;
-    map.map[x][y] = Map.PLAYER;
   }
   
   private void setPlayer(Map map) {
@@ -29,25 +28,25 @@ public class PlayerBase {
   } 
   
   public void moveUp(Map map) {
-    if (map.getMap(this.x - 1, this.y) != -1 && this.isMove(map, this.x - 1, this.y))  {
+    if (this.isMove(map, this.x - 1, this.y))  {
       this.x--;
     }
   }
   
   public void moveDown(Map map) {
-    if (map.getMap(this.x + 1, this.y) != -1 && this.isMove(map, this.x + 1, this.y)) {
+    if (this.isMove(map, this.x + 1, this.y)) {
       this.x++;
     }
   }
   
   public void moveLeft(Map map) { 
-    if (map.getMap(this.x, this.y - 1) != -1 && this.isMove(map, this.x, this.y - 1)) {
+    if (this.isMove(map, this.x, this.y - 1)) {
       this.y--;
     }
   }
   
   public void moveRight(Map map) {
-    if (map.getMap(this.x, this.y + 1) != -1 && this.isMove(map, this.x, this.y + 1)) {
+    if (this.isMove(map, this.x, this.y + 1)) {
       this.y++;
     }
   }

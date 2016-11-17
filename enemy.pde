@@ -12,7 +12,7 @@ class Enemy extends  PlayerBase {
   }
 
   public void move(Map map) {
-    switch((int)random(4) {
+    switch((int)random(4)) {
     case 0 :
       this.moveUp(map);
       break;
