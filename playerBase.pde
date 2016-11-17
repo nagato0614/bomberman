@@ -22,8 +22,8 @@ public class PlayerBase {
     map.map[this.x][this.y] = Map.EMPTY;
   }
   
-  private boolean isMove(Map map, int i, int j) {
-    if (map.map[i][j] == Map.HARD_BLOCK || map.map[i][j] == Map.SOFT_BLOCK)
+  protected boolean isMove(Map map, int i, int j) {
+    if (map.map[i][j] != Map.EMPTY)
       return false;
     return true;
   } 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 //static variable
 final int TURN = 15;
 boolean GAME_END = false;
+boolean GAME_CLEAR = true;
 Map map;
 MyPlayer me;
 Enemy enemy;
@@ -62,13 +63,13 @@ void draw() {
   //player
   fill(255);
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
-  
-   update();
+
+  update();
   if ((turnCount = ++turnCount % TURN) == 0 && !GAME_END) {
     isKeyPush = true;
     isMoveKey = true;
   }
-  
+
   allHitCheck();
 }
 
