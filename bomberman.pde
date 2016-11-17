@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 //static variable
 final int TURN = 15;
-final int ENEMY_NUM = 10;
+final int ENEMY_NUM = 1;
 boolean GAME_END = false;
-boolean GAME_CLEAR = true;
+boolean GAME_CLEAR = false;
 Map map;
 MyPlayer me;
 Enemy enemy;
@@ -34,7 +34,23 @@ void setup() {
   spownEnemy();
 }
 
+void hitEnemy() {
+  if (e.size() <= 0)
+    return;
+  for (int i = 0; i < e.size(); i++) {
+    Enemy a = e.get(i);
+    if (a != null) {
+      if (a.getX() == me.getX() && a.getY() == me.getY()) {
+        GAME_END = true; 
+        println("finish");
+      }
+    }
+  }
+}
+
 void draw() {
+  if (e.size() <= 0)
+    GAME_CLEAR = true;
   background(255);
   //draw map
   for (int i = 0; i < Map.HEIGHT; i++) {
@@ -79,6 +95,17 @@ void draw() {
   }
 
   allHitCheck();
+  hitEnemy();
+  if (GAME_END) {
+    fill(#7128FA);
+    textSize(70);
+    text("GAMEOVER", 70, 100);
+  }
+  if (GAME_CLEAR) {
+    fill(#EDFF00);
+    textSize(70);
+    text("GAME CLEAR", 70, 100);
+  }
 }
 
 void enemyMoveAll() {
@@ -200,10 +227,10 @@ boolean hitCheck(PlayerBase p, Map m, Bomb b) {
       int diff = p.getY() - b.getY();
       //check light
       if (diff< 0) {
-        if (diff < b.getExpSize(3))
+        if (abs(diff) < b.getExpSize(3))
           return true;
       } else if (diff> 0) {
-        if (diff < b.getExpSize(2))
+        if (abs(diff) < b.getExpSize(2))
           return true;
       }
     }
