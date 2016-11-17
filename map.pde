@@ -7,7 +7,7 @@ class Map {
   public static final int PLAYER = 1;
   public static final int BOMB = 2;
   public static final int SOFT_BLOCK = 3;
-  public static final int MAX_SOFT_BLOCK = 140;
+  public static final int MAX_SOFT_BLOCK = 100;
   private int map[][];
   private int hiddenMap[][];
 
@@ -99,16 +99,16 @@ class Map {
 
   public void brakeSoftBrock(int i, int j) {
     if (0 <= i && i < this.HEIGHT && 0 <= j && j < this.WIDTH)
-      this.map[i][j] = EMPTY;
+      this.map[i][j] = 0;
   }
   
-  public void show() {
-    println("map");
-    for (int i = 0; i < HEIGHT; i++) { 
-      for (int j = 0; j < WIDTH ; j++) {
-        System.out.printf("%3d ", this.map[i][j]);
+  public int[][] copyMap() {
+    int[][] buf = new int[HEIGHT][WIDTH];
+    for (int i = 0; i < HEIGHT; i++) {
+      for (int j = 0; j < WIDTH; j++) {
+        buf[i][j] = map[i][j];
       }
-      println();
     }
+    return buf;
   }
 }

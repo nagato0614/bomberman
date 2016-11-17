@@ -10,7 +10,7 @@ class Bomb {
   private int level;
   private int[] explosionSize;
   
-  public Bomb(int x, int y, PlayerBase player, int level) {
+  public Bomb(int x, int y,  PlayerBase player, int level) {
     this.x = x;
     this.y = y;
     this.bombCnt = 0;
@@ -21,6 +21,18 @@ class Bomb {
       explosionSize[i] = 0;
     this.isExplode = false;
     }
+  }
+  
+  public int getExpSize(int i) {
+    return this.explosionSize[i];
+  }
+  
+  public int getX() {
+    return this.x;
+  }
+  
+  public int getY() {
+    return this.y;
   }
   
   int update() {
@@ -77,7 +89,6 @@ class Bomb {
       }
       this.explosionSize[3]++;
     }
-   
     
     fill(#FFCE52);
     //down

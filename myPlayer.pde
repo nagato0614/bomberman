@@ -4,7 +4,7 @@ public class MyPlayer extends PlayerBase {
   private int y;
   
   public MyPlayer(Map map) {
-    super(map);
+    super(map, 1, 1);
   }
 
 }

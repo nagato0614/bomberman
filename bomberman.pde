@@ -4,11 +4,16 @@
 import java.util.ArrayList;
 
 //static variable
+final int TURN = 15;
 boolean GAME_END = false;
 Map map;
 MyPlayer me;
+Enemy enemy;
 ArrayList<Bomb> bomb;
-int showCnt;
+ArrayList<Enemy> e;
+boolean isKeyPush;
+boolean isMoveKey;
+int turnCount;
 
 void setup() {
   size(520, 400);
@@ -20,7 +25,10 @@ void setup() {
   map = new Map();
   me = new MyPlayer(map);
   bomb = new ArrayList<Bomb>();
-  showCnt = 0;
+  e = new ArrayList<Enemy>();
+  isKeyPush = true;
+  isMoveKey = true;
+  turnCount = 0;
 }
 
 void draw() {
@@ -54,12 +62,24 @@ void draw() {
   //player
   fill(255);
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
-
-  update();
   
-  showCnt = ++showCnt % 60;
-  if (showCnt == 0)
-    map.show();
+   update();
+  if ((turnCount = ++turnCount % TURN) == 0 && !GAME_END) {
+    isKeyPush = true;
+    isMoveKey = true;
+  }
+  
+  allHitCheck();
+}
+
+void spoenEnemy() {
+  for (int i = 0; i < 3; i ++) {
+    for (int j = 0; j < Map.WIDTH; j++) {
+      if (map.map[i][j] == Map.EMPTY && random(100) > 90) {
+        e.add(new Enemy(map, i, j, (int)random(2) + 1));
+      }
+    }
+  }
 }
 
 
@@ -92,7 +112,58 @@ void update() {
   }
 }
 
+//for player
+void allHitCheck() {
+  if (bomb.size() > 0) {
+    for (int i = 0; i < bomb.size(); i++) {
+      if (hitCheck(me, map, bomb.get(i))) {
+        GAME_END = true; 
+        println("finish");
+      }
+    }
+  }
+}
+
+boolean hitCheck(PlayerBase p, Map m, Bomb b) {
+  if (b.getIsExplode()) {
+    if (p.getY() == b.getY()) {
+      if (p.getX() == b.getX())
+        return true;
+
+      int diff = p.getX() - b.getX();
+      System.out.printf("%d, %d, %d, %d\n", p.getX(), b.getX(), diff, b.getExpSize(1));
+      //check down
+      if (diff < 0) {
+        if (abs(diff) < b.getExpSize(1))
+          return true;
+      } else if (diff > 0) {    //check down
+        if (abs(diff) < b.getExpSize(0))
+          return true;
+      }
+    }
+
+    if (p.getX() == b.getX()) {
+      int diff = p.getY() - b.getY();
+      //check light
+      if (diff< 0) {
+        if (diff < b.getExpSize(3))
+          return true;
+      } else if (diff> 0) {
+        if (diff < b.getExpSize(2))
+          return true;
+      }
+    }
+  }
+  return false;
+}
+
+
+//------------event handler-----------------
+
 void keyTyped() {
+  if (!isKeyPush)
+    return;
+  isKeyPush = false;
   if (keyPressed) {
     switch (int(key)) {
     case 'z' :
@@ -105,6 +176,9 @@ void keyTyped() {
 }
 
 void keyPressed() {
+  if (!isMoveKey) 
+    return;
+  isMoveKey = false;
   if (key == CODED) {
     if (keyCode == UP) {
       me.moveUp(map);
