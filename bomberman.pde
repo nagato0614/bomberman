@@ -52,6 +52,41 @@ void draw() {
   if (e.size() <= 0)
     GAME_CLEAR = true;
   background(255);
+  drawObject();
+  drawEnemy();
+  update();
+  allHitCheck();
+  hitEnemy();
+  endCheck();
+  nextTurn();
+}
+
+void nextTurn() {
+  if ((++turnCount % TURN) == 0 && !GAME_END) {
+    isKeyPush = true;
+    isMoveKey = true;
+  }
+  if ((turnCount % (TURN + 20) == 0)) {
+    enemyMoveAll();
+  }
+}
+
+void endCheck() {
+  if (GAME_END) {
+    background(0);
+    fill(#7128FA);
+    textSize(70);
+    text("GAMEOVER", 40, 100);
+  }
+  if (GAME_CLEAR) {
+    background(#F5BCE1);
+    fill(#EDFF00);
+    textSize(70);
+    text("GAME CLEAR", 40, 100);
+  }
+}
+
+void drawObject() {
   //draw map
   for (int i = 0; i < Map.HEIGHT; i++) {
     for (int j = 0; j < Map.WIDTH; j++) {
@@ -67,7 +102,6 @@ void draw() {
     }
   }
 
-
   //draw bomb
   for (int i = 0; i < Map.HEIGHT; i++) {
     for (int j = 0; j < Map.WIDTH; j++) {
@@ -77,35 +111,10 @@ void draw() {
       }
     }
   }
-
+  
   //player
   fill(255);
   ellipse(me.getRealX(), me.getRealY(), 20, 20);
-
-
-  drawEnemy();
-
-  update();
-  if ((++turnCount % TURN) == 0 && !GAME_END) {
-    isKeyPush = true;
-    isMoveKey = true;
-  }
-  if ((turnCount % (TURN + 20) == 0)) {
-    enemyMoveAll();
-  }
-
-  allHitCheck();
-  hitEnemy();
-  if (GAME_END) {
-    fill(#7128FA);
-    textSize(70);
-    text("GAMEOVER", 70, 100);
-  }
-  if (GAME_CLEAR) {
-    fill(#EDFF00);
-    textSize(70);
-    text("GAME CLEAR", 70, 100);
-  }
 }
 
 void enemyMoveAll() {
